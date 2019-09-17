@@ -1,12 +1,7 @@
-
 #include <stdio.h> 
+#include"linklist_delete.h"
 #include <stdlib.h> 
 
-struct Node 
-{ 
-	int data; 
-	struct Node *next; 
-}; 
 void push(struct Node** head_ref, int new_data) 
 { 
 	struct Node* new_node = (struct Node*) malloc(sizeof(struct Node)); 
@@ -17,19 +12,18 @@ void push(struct Node** head_ref, int new_data)
 void deleteNode(struct Node **head_ref, int key) 
 { 
 	struct Node* temp = *head_ref, *prev; 
-	if (temp != NULL && temp->data == key) 
+	if (temp != NULL && temp->data == key) //deleting 1st element
 	{ 
 		*head_ref = temp->next;
 		free(temp);	
 		return; 
 	} 
-	while (temp != NULL && temp->data != key) 
+	while (temp != NULL && temp->data != key) //deleting middle element
 	{ 
 		prev = temp; 
 		temp = temp->next; 
-                
 	} 
-	if (temp == NULL) return; 
+	if (temp == NULL) return; // If key was not present in linked list  
 	prev->next = temp->next; 
 	free(temp); //free memory
 } 
@@ -41,21 +35,4 @@ void printList(struct Node *node)
 		node = node->next; 
 	} 
 } 
-int main() 
-{ 
-	struct Node* head = NULL; 
-
-	push(&head, 7); 
-	push(&head, 1); 
-	push(&head, 3); 
-        push(&head, 1); 
-	push(&head, 2); 
-
-	puts("Created Linked List: "); 
-	printList(head); 
-	deleteNode(&head, 2); 
-	puts("\nLinked List after Deletion of 2: "); 
-	printList(head); 
-	return 0; 
-}
 
