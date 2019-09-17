@@ -269,9 +269,7 @@ int main(int argc, char** argv) {
     logger->setFileName(logfile);
     logger->setMethod(Logger::ALL, Logger::LOGFILE);
     LOG(Logger::INFO, "<===============================Connected_home started==============================>");
-   
-    for(int i=1;i<argc;i++)  
-    printf("%s\n",argv[i]);
+  
     setTouchHandler(tH);
     libTouchInit();
 
