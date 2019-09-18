@@ -1,0 +1,35 @@
+Create a TCP/UDP server-client application. The corresponding jobs of client and server are described below.
+
+Client:
+
+1. Render menu like the application to add, remove a device, edit the required attribute for the requested device.
+
+2. It should send a packet in the following format.
+
+|         1 Byte         |          1 Byte         |          1 Byte         |          1 Byte         |          N Bytes       |
+
++---------------------++---------------------++---------------------++---------------------++---------------------+
+|     Command       |     Device ID        |       Attribute ID     |   Att Value Len     |    Attr Value  ...    |
++---------------------++---------------------++---------------------++---------------------++---------------------+
+
+The command can be enum for Read/Write and their responses.
+
+Attribute ID can be enum to represent the corresponding Device attribute.
+
+3. When the client receives a response for requested attribute it should display to the user.
+
+Server:
+
+1. When it receives write attribute/add device command it should save the details in one file called database file.
+
+2. The format of how the details will be stored in the database file should be defined in some header file.
+
+Like first 256 bytes are for device 1, next 256 bytes are for device 2 ….
+
+In every 256 bytes define offsets for each attribute.
+
+Define max limits for string attributes. Like Manufacturer name should not exceed 31.
+
+3. When a client sends a command to read attribute for the specified device ID then it should calculate the offset to read and send the response with the data in the above format.
+
+Note: Typical Device attributes are device number, Name, Location, Manufacture Name,…

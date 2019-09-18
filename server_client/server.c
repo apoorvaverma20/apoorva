@@ -16,32 +16,60 @@ struct sockaddr_in servaddr, cli;
 // Function designed for chat between client and server. 
 void func(int sockfd) 
 { 
-       
+        int arr[10],z=1;
         File *fi;
-        char name[31],loc[32],manuf[64];
-        int num; 
+        char dev_name[31],loc[32],manf_name[64];
+        int dev_num[100]; 
 	int n; 
         fi=fopen("database.txt","w");
+        if ( fi == NULL )   //if pointer is NULL means no file present
+        printf( " file failed to open." ) ; 
+        else
+        printf("The file is now opened.\n") ; 
+
 	// infinite loop for chat 
 	for (;;) { 
-		bzero(buff, MAX); 
+                dev_num[i]=z;
+	        for(int j=0;j<3;j++)
+                {
+                 for(int i=0;i<4;i++)
+                 {
+                  read(sockfd,arr[i],sizeof(arr[i])); 
+                 }
+                 // add details
+                  if(arr[0]==1 && arr[2]==0)       //means writing and arr[2]=device name
+                  {
+                   printf("Enter the device name");
+                   scanf("%s",&dev_name);
+                   fputs(dev_name,fi);
+                   fputs("\t",fi);
+                  }
+                  if(arr[0]==1 && arr[2]==1)       //means writing and arr[2]=location
+                  {
+                   printf("Enter the location");
+                   scanf("%s",&loc);
+                   fputs(loc,fi);                 //write in file
+                   fputs("\t",fi);
+                  }
 
-		// read the message from client and copy it in name 
-		read(sockfd, name, sizeof(name)); 
-                fputs(name,fi);  //write
+                  if(arr[0]==1 && arr[2]==2)       //means writing and arr[2]=manf name
+                  {
+                   printf("Enter the manufacture name");
+                   scanf("%s",&manf_name);
+                   fputs(manf_name,fi);
+                   fputs("\t",fi);
+                  }
+                   fputs("\n",fi);
+                   arr[2]=m+1;         //dev name-loc-man_name
+                }       
+              }
+               fclose(fi);
                
-                read(sockfd,num, sizeof(num)); 
-                fputs(num,fi);
-
-                read(sockfd,loc, sizeof(loc)); 
-                fputs(loc,fi);
-                 
-                read(sockfd,manuf, sizeof(manuf)); 
-                fputs(manuf,fi);
                
-
+               
+                /* char buff[MAX]; 
 		// print buffer which contains the client contents 
-		/*printf("From client: %s\t To client : ", buff); 
+		printf("From client: %s\t To client : ", buff); 
 		bzero(buff, MAX); 
 		n = 0; 
 		// copy server message in the buffer 
@@ -55,8 +83,8 @@ void func(int sockfd)
 		if (strncmp("exit", buff, 4) == 0) { 
 			printf("Server Exit...\n"); 
 			break; 
-		} 
-	} */
+		} */
+	} 
 } 
 
 int main() 
@@ -98,7 +126,7 @@ int main()
 	len = sizeof(cli); 
 
 	// Accept the data packet from client and verification and ready to transfer data
-	connfd = accept(sockfd, (SA*)&cli, &len); 
+	connfd = accept(sockfd, (SA*)&cli, &len);  //(SA*)&cli has the address of the client
 	if (connfd < 0) { 
 		printf("server acccept failed...\n"); 
 		exit(0); 
