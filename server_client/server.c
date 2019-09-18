@@ -20,7 +20,7 @@ void func(int sockfd)
         File *fi;
         char dev_name[31],loc[32],manf_name[64];
         int dev_num[100]; 
-	int n; 
+	int m=0; 
         fi=fopen("database.txt","w");
         if ( fi == NULL )   //if pointer is NULL means no file present
         printf( " file failed to open." ) ; 
