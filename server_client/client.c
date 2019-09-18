@@ -17,6 +17,8 @@ void func(int sockfd,int x)
        for (;;)
       { 
        int arr[10];
+       char value[100];
+       bzero(arr, MAX);
        enum command{Read,writing,add,delete,update}; //0 to 4
        enum attri_id{dev_name,loc,manf_name};
        int dev_id;
@@ -27,31 +29,38 @@ void func(int sockfd,int x)
        {
        case 1:      //add a device
        {
-        printf("Enter the command type\n");
+       // printf("Enter the command type\n");
         //scanf("%d",&k);
-        k=writing;  //store 1 here
-        arr[0]=k;
+        //k=writing;  //store 1 here
+        arr[0]=x;    //command type
         
         printf("Enter the deviceID\n");
         scanf("%d",&dev_id); 
         arr[1]=dev_id;
  
         printf("Enter the attribute ID\n");
-        m=dev_name;   //store 0
+        //m=dev_name;   //store 0
         arr[2]=m;
  
-        printf("Enter the attribute value length\n");
-        attr_len=sizeof(arr[1]);
-        arr[3]=attr_len;
+        //printf("Enter the attribute value length\n");
+        attr_len=sizeof(arr[2]);
+        arr[3]=attr_len; 
+
+         printf("Enter the value\n");
+        scanf("%d",value); 
+        arr[4]=value;
         
-        for(int j=0;j<3;j++)
+        /*for(int j=0;j<3;j++)
         {
          for(int i=0;i<4;i++)
          {
           write(sockfd,arr[i],sizeof(arr[i])); //send the "array" to server
          }
-        arr[2]=m+1;
-        }     
+         
+         arr[2]=m+1;
+        } */   
+         
+         write(sockfd,arr,sizeof(arr));
        }
         break;
         

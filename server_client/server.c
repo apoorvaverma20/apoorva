@@ -16,11 +16,11 @@ struct sockaddr_in servaddr, cli;
 // Function designed for chat between client and server. 
 void func(int sockfd) 
 { 
-        int arr[10],z=1;
-        File *fi;
+        int arr[10],z=1,m=0;
+        FILE *fi;
         char dev_name[31],loc[32],manf_name[64];
         int dev_num[100]; 
-	int m=0; 
+	int n; 
         fi=fopen("database.txt","w");
         if ( fi == NULL )   //if pointer is NULL means no file present
         printf( " file failed to open." ) ; 
@@ -29,7 +29,7 @@ void func(int sockfd)
 
 	// infinite loop for chat 
 	for (;;) { 
-                dev_num[i]=z;
+                //dev_num[i]=z;
 	        for(int j=0;j<3;j++)
                 {
                  for(int i=0;i<4;i++)
@@ -43,6 +43,7 @@ void func(int sockfd)
                    scanf("%s",&dev_name);
                    fputs(dev_name,fi);
                    fputs("\t",fi);
+                   //write(sockfd,dev_name,sizeof(dev_name));
                   }
                   if(arr[0]==1 && arr[2]==1)       //means writing and arr[2]=location
                   {
@@ -50,6 +51,7 @@ void func(int sockfd)
                    scanf("%s",&loc);
                    fputs(loc,fi);                 //write in file
                    fputs("\t",fi);
+                  // write(sockfd,loc,sizeof(loc));
                   }
 
                   if(arr[0]==1 && arr[2]==2)       //means writing and arr[2]=manf name
@@ -58,6 +60,7 @@ void func(int sockfd)
                    scanf("%s",&manf_name);
                    fputs(manf_name,fi);
                    fputs("\t",fi);
+                  // write(sockfd,manf_name,sizeof(manf_name));
                   }
                    fputs("\n",fi);
                    arr[2]=m+1;         //dev name-loc-man_name
@@ -84,7 +87,7 @@ void func(int sockfd)
 			printf("Server Exit...\n"); 
 			break; 
 		} */
-	} 
+	
 } 
 
 int main() 
