@@ -16,39 +16,46 @@ void func(int sockfd,int x)
 {     
        for (;;)
       { 
-       int arr[10];
-       char value[100];
+       int i=0;
+       char arr[100];
+       //char value;
        bzero(arr, MAX);
        enum command{Read,writing,add,delete,update}; //0 to 4
        enum attri_id{dev_name,loc,manf_name};
-       int dev_id;
-       int attr_len;
+       char dev_id;
+       char attr_len;
+      // char dev_name,loc,manf_name;
+       char name[100];
        enum command k;
        enum attri_id m;
        switch(x)
        {
        case 1:      //add a device
        {
-       // printf("Enter the command type\n");
-        //scanf("%d",&k);
-        //k=writing;  //store 1 here
-        arr[0]=x;    //command type
-        
-        printf("Enter the deviceID\n");
-        scanf("%d",&dev_id); 
-        arr[1]=dev_id;
- 
-        printf("Enter the attribute ID\n");
-        //m=dev_name;   //store 0
-        arr[2]=m;
- 
-        //printf("Enter the attribute value length\n");
-        attr_len=sizeof(arr[2]);
-        arr[3]=attr_len; 
+        while(m<3)     //repeating for all attributes
+        {
+        arr[i]=writing;    //command type
+        i++; 
 
-         printf("Enter the value\n");
-        scanf("%d",value); 
-        arr[4]=value;
+        printf("Enter the deviceID\n");       
+        scanf("%s",&dev_id); 
+        arr[i]=dev_id;
+        i++;
+ 
+        arr[i]=m;       //attribute id
+        m++;
+        i++;
+
+        printf("Enter the value to be inserted\n"); 
+        scanf("%s",name);
+        attr_len=sizeof(name);
+        arr[i]=attr_len;
+        i++;
+  
+        strcpy((arr+attr_len),name);
+        }        //end of while loop
+
+        write(sockfd,arr,sizeof(arr));
         
         /*for(int j=0;j<3;j++)
         {
@@ -60,21 +67,11 @@ void func(int sockfd,int x)
          arr[2]=m+1;
         } */   
          
-         write(sockfd,arr,sizeof(arr));
+         
        }
         break;
         
-        case 2: //remove a device
-        {
-        }
-         break;
-       
-        case 3: //edit the details of a device
-        {
-        }
-        break;
-        
-        }
+     
         
 
 	/*char buff[MAX]; 

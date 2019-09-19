@@ -16,21 +16,31 @@ struct sockaddr_in servaddr, cli;
 // Function designed for chat between client and server. 
 void func(int sockfd) 
 { 
-        int arr[10],z=1,m=0;
+        char arr[100];
+       // int z=1,m=0;
         FILE *fi;
-        char dev_name[31],loc[32],manf_name[64];
-        int dev_num[100]; 
-	int n; 
-        fi=fopen("database.txt","w");
-        if ( fi == NULL )   //if pointer is NULL means no file present
-        printf( " file failed to open." ) ; 
-        else
-        printf("The file is now opened.\n") ; 
+        //char dev_name[31],loc[32],manf_name[64];
+        //int dev_num[100]; 
+	//int n;
 
 	// infinite loop for chat 
 	for (;;) { 
+             read(sockfd,arr,sizeof(arr));
+             
+             if(arr[0]==1)
+             {
+               fi=fopen("database.txt","w");
+               if ( fi == NULL )   //if pointer is NULL means no file present
+               printf( "file failed to open." ) ; 
+               else
+               printf("The file is now opened.\n") ; 
+               fputs(arr,fi);
+             }
+
+
+
                 //dev_num[i]=z;
-	        for(int j=0;j<3;j++)
+	      /*  for(int j=0;j<3;j++)
                 {
                  for(int i=0;i<4;i++)
                  {
@@ -65,7 +75,7 @@ void func(int sockfd)
                    fputs("\n",fi);
                    arr[2]=m+1;         //dev name-loc-man_name
                 }       
-              }
+              }*/
                fclose(fi);
                
                
@@ -87,7 +97,7 @@ void func(int sockfd)
 			printf("Server Exit...\n"); 
 			break; 
 		} */
-	
+	}
 } 
 
 int main() 
