@@ -17,25 +17,23 @@ struct sockaddr_in servaddr, cli;
 void func(int sockfd) 
 { 
         char arr[100];
-       // int z=1,m=0;
         FILE *fi;
-        //char dev_name[31],loc[32],manf_name[64];
-        //int dev_num[100]; 
-	//int n;
-
-	// infinite loop for chat 
-	for (;;) { 
-             read(sockfd,arr,sizeof(arr));
-             
-             if(arr[0]==1)
-             {
-               fi=fopen("database.txt","w");
+        int m=0,i=0;
+              while(m<3)
+              {
+              read(sockfd,arr,sizeof(arr));
+             // printf("%d\n",arr[i]);
+             // i++;
+              m++;
+            
+               fi=fopen("database.txt","a");
                if ( fi == NULL )   //if pointer is NULL means no file present
                printf( "file failed to open." ) ; 
                else
                printf("The file is now opened.\n") ; 
                fputs(arr,fi);
-             }
+               }
+             
 
 
 
@@ -97,7 +95,7 @@ void func(int sockfd)
 			printf("Server Exit...\n"); 
 			break; 
 		} */
-	}
+	
 } 
 
 int main() 
@@ -149,10 +147,9 @@ int main()
 
         char ip[INET_ADDRSTRLEN]; 
         inet_ntop(AF_INET, &(cli.sin_addr), ip, INET_ADDRSTRLEN); 
-        printf("connection established with IP : %s and PORT : %d\n",  
-                                            ip, ntohs(cli.sin_port)); 
-  
-
+        //printf("connection established with IP : %s and PORT : %d\n",  
+                                         //   ip, ntohs(cli.sin_port)); 
+         
 	// Function for chatting between client and server 
 	func(connfd); 
 
