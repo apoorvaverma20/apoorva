@@ -29,8 +29,8 @@ void func(int sockfd)
        enum command k;
        enum attri_id m;
       
-         for(;;)
-       {
+         //for(;;)
+       //{
          printf("1.Add a device\n");
          printf("2.Remove a device\n");
          printf("3.Edit the device details\n");
@@ -63,25 +63,37 @@ void func(int sockfd)
         attr_len=strlen(name);      
         arr[i]=attr_len;                            //arr[3]
         printf("Attribute length of arr[%d] is %d\n",i,arr[i]);
-        i=i+1;
+       // i=i+1;
         printf("value of i is %d\n",i);
         
         //i=sizeof(arr);
-        i=strlen(arr);
-        printf("value of i of array length is %d\n",i);
-  
-        strcpy(arr+i,name);
-        for(int j=0;j<strlen(arr);j++)
+       int k=strlen(arr);
+        printf("value of i of array length is %d\n",k);
+        
+        strcpy(arr+k,name);
+      
+printf("arr[0] is %d\n",arr[0]);
+printf("arr[1] is %d\n",arr[1]);
+printf("arr[2] is %d\n",arr[2]);
+printf("arr[3] is %d\n",arr[3]);
+printf("arr[4] is %c\n",arr[4]);
+printf("arr[5] is %c\n",arr[5]);
+printf("arr[6] is %c\n",arr[6]);
+printf("arr[7] is %c\n",arr[7]);
+printf("arr[8] is %c\n",arr[8]);
+printf("arr[9] is %c\n",arr[9]);
+
+      /*  for(int j=0;j<strlen(arr);j++)
         {
         printf("arr[%d] is %c\n",j,arr[j]);
         //i=j;
-        }
+        }*/
         m++;
         write(sockfd,arr,sizeof(arr));
 
         }
         
-        } //end of for
+        //} //end of for
         
 
 	/*char buff[MAX]; 
