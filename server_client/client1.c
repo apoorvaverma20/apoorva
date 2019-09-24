@@ -24,13 +24,10 @@ void func(int sockfd)
        int8_t dev_id;
        int x;
        int8_t attr_len;
-      // char dev_name,loc,manf_name;
-       char name[31];
-       enum command k;
+       char name[32],location[32];
+       //enum command k;
        enum attri_id m;
-      
-         //for(;;)
-       //{
+       m=0;
          printf("1.Add a device\n");
          printf("2.Remove a device\n");
          printf("3.Edit the device details\n");
@@ -50,76 +47,58 @@ void func(int sockfd)
         printf("device id is %d\n",arr[i]);
         i=i+1;
         printf("value of i is %d\n",i);
-
-        arr[i]=dev_name;       //attribute id
+   
+        
+        /*arr[i]=dev_name;       //attribute id
         printf("Attribute id arr[%d] is %d\n",i,arr[i]);        //arr[2]
         i=i+1;
-        printf("value of i is %d\n",i);
-
-        printf("Enter the value to be inserted\n"); 
+        printf("value of i is %d\n",i);*/
+        while(m<3)
+        {
+        if(m==0)
+       { printf("Enter the device name to be inserted\n"); 
         scanf("%s",&name);
-        printf("Name is %s\n",name);
+        printf("Name is %s\n",name);}
+       if(m==1)
+       {printf("Enter the device location to be inserted\n"); 
+        scanf("%s",&name);
+        printf("Name is %s\n",name);}
+       if(m==2)
+       {printf("Enter the manufacturer name to be inserted\n"); 
+        scanf("%s",&name);
+        printf("Name is %s\n",name);}
       
         attr_len=strlen(name);      
         arr[i]=attr_len;                            //arr[3]
         printf("Attribute length of arr[%d] is %d\n",i,arr[i]);
        // i=i+1;
         printf("value of i is %d\n",i);
+        i=strlen(arr);             //arr[4]
+       // printf("value of array length is %d\n",i);
         
-        //i=sizeof(arr);
-       int k=strlen(arr);
-        printf("value of i of array length is %d\n",k);
-        
-        strcpy(arr+k,name);
-      
-printf("arr[0] is %d\n",arr[0]);
-printf("arr[1] is %d\n",arr[1]);
-printf("arr[2] is %d\n",arr[2]);
-printf("arr[3] is %d\n",arr[3]);
-printf("arr[4] is %c\n",arr[4]);
-printf("arr[5] is %c\n",arr[5]);
-printf("arr[6] is %c\n",arr[6]);
-printf("arr[7] is %c\n",arr[7]);
-printf("arr[8] is %c\n",arr[8]);
-printf("arr[9] is %c\n",arr[9]);
+      strcpy(arr+i,name);
+      i=strlen(arr);
+      printf("value of array length is %d\n",i);
+     /* printf("arr[0] is %d\n",arr[0]);
+      printf("arr[1] is %d\n",arr[1]);
+      printf("arr[2] is %d\n",arr[2]);
+      printf("arr[3] is %c\n",arr[3]);
+      printf("arr[4] is %c\n",arr[4]);
+      printf("arr[5] is %c\n",arr[5]);
+      printf("arr[6] is %c\n",arr[6]);
+      printf("arr[7] is %c\n",arr[7]);*/
 
-      /*  for(int j=0;j<strlen(arr);j++)
-        {
-        printf("arr[%d] is %c\n",j,arr[j]);
-        //i=j;
-        }*/
-        m++;
-        write(sockfd,arr,sizeof(arr));
-
-        }
-        
-        //} //end of for
-        
-
-	/*char buff[MAX]; 
-	int n; 
-	//for (;;) { 
-		bzero(buff, sizeof(buff)); 
-		//printf("Enter the string : "); 
-		n = 0; 
-		while ((buff[n++] = getchar()) != '\n');
- 
-               //send that buffer to server
-		write(sockfd, buff, sizeof(buff)); 
-		bzero(buff, sizeof(buff)); 
-		read(sockfd, buff, sizeof(buff)); 
-		printf("From Server : %s", buff); 
-		if ((strncmp(buff, "exit", 4)) == 0) { 
-			printf("Client Exit...\n"); 
-			break; 
-		} */
+      m++;
+      } //end of while loop
+    }//end of if
+  write(sockfd,arr,sizeof(arr));
+         
 	
 } 
 
 int main() 
 { 
 	int sockfd, connfd; 
-        int x;
 	struct sockaddr_in servaddr, cli; 
 
 	// socket create and verification 

@@ -16,64 +16,52 @@ struct sockaddr_in servaddr, cli;
 // Function designed for chat between client and server. 
 void func(int sockfd) 
 { 
-        char arr[100];
+        char arr[256],index[256];
         FILE *fi;
-        int m=0,i=0;
-              while(m<3)
-              {
+    
               read(sockfd,arr,sizeof(arr));
-             // printf("%d\n",arr[i]);
-             // i++;
-              m++;
+              int z=strlen(arr);
+              printf("size of array is %d\n",z);
+              int i=0,j=0;
+              index[j]=arr[i+1];
+              int k=1;
+              int p=3;
+              for(j=1;j<32;j++)
+              {
+               if(k<=arr[i+2]){
+               index[j]=arr[p];
+               p++;
+               k++;}
+               else
+               index[j]='0';              
+              }
+               printf("i,j,k,p are %d %d %d %d\n",i,j,k,p);
+               int l=1;
+               index[j]=arr[p]; //attribute length
+               printf("Array of p is %d\n",arr[p]);
+               int o=p+1;
+               for(j=33;j<64;j++)
+               {
+                 if(l<=arr[p]){
+                 index[j]=arr[o];
+                 o++;
+                 l++;}
+                 else
+                 index[j]='0';
+                }
+                printf("l,o,p,j are %d %d %d %d\n",l,o,p,j);
+                
+             
+       
             
                fi=fopen("database.txt","a");
                if ( fi == NULL )   //if pointer is NULL means no file present
                printf( "file failed to open." ) ; 
-               else
+               else{
                printf("The file is now opened.\n") ; 
-               fputs(arr,fi);
+               fputs(index,fi);
                }
-             
-
-
-
-                //dev_num[i]=z;
-	      /*  for(int j=0;j<3;j++)
-                {
-                 for(int i=0;i<4;i++)
-                 {
-                  read(sockfd,arr[i],sizeof(arr[i])); 
-                 }
-                 // add details
-                  if(arr[0]==1 && arr[2]==0)       //means writing and arr[2]=device name
-                  {
-                   printf("Enter the device name");
-                   scanf("%s",&dev_name);
-                   fputs(dev_name,fi);
-                   fputs("\t",fi);
-                   //write(sockfd,dev_name,sizeof(dev_name));
-                  }
-                  if(arr[0]==1 && arr[2]==1)       //means writing and arr[2]=location
-                  {
-                   printf("Enter the location");
-                   scanf("%s",&loc);
-                   fputs(loc,fi);                 //write in file
-                   fputs("\t",fi);
-                  // write(sockfd,loc,sizeof(loc));
-                  }
-
-                  if(arr[0]==1 && arr[2]==2)       //means writing and arr[2]=manf name
-                  {
-                   printf("Enter the manufacture name");
-                   scanf("%s",&manf_name);
-                   fputs(manf_name,fi);
-                   fputs("\t",fi);
-                  // write(sockfd,manf_name,sizeof(manf_name));
-                  }
-                   fputs("\n",fi);
-                   arr[2]=m+1;         //dev name-loc-man_name
-                }       
-              }*/
+            
                fclose(fi);
                
                
