@@ -37,10 +37,10 @@ void func(int sockfd)
               }
                printf("i,j,k,p are %d %d %d %d\n",i,j,k,p);
                int l=1;
-               index[j]=arr[p]; //attribute length
+               //index[j]=arr[p]; //attribute length
                printf("Array of p is %d\n",arr[p]);
                int o=p+1;
-               for(j=33;j<64;j++)
+               for(j=32;j<64;j++)
                {
                  if(l<=arr[p]){
                  index[j]=arr[o];
