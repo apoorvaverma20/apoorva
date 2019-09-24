@@ -37,10 +37,10 @@ void func(int sockfd)
               }
                printf("i,j,k,p are %d %d %d %d\n",i,j,k,p);
                int l=1;
-               index[j]=arr[p]; //attribute length
+              // index[j]=arr[p]; //attribute length
                printf("Array of p is %d\n",arr[p]);
                int o=p+1;
-               for(j=33;j<64;j++)
+               for(j=32;j<64;j++)
                {
                  if(l<=arr[p]){
                  index[j]=arr[o];
@@ -48,10 +48,23 @@ void func(int sockfd)
                  l++;}
                  else
                  index[j]='0';
-                }
+               }
                 printf("l,o,p,j are %d %d %d %d\n",l,o,p,j);
                 
-             
+                int b=1,q=o+1;
+                for(j=54;j<256;j++)
+                {
+                 if(b<=arr[o])
+                  {
+                   index[j]=arr[q];
+                   q++;
+                   b++;
+                   }
+                  else
+                  index[j]='0';
+                }
+                 
+                
        
             
                fi=fopen("database.txt","a");
