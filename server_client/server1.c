@@ -13,46 +13,59 @@
 
 struct sockaddr_in servaddr, cli; 
 
-// Function designed for chat between client and server. 
-void func(int sockfd) 
-{ 
-        char arr[256],index[256];
-        FILE *fi;
-    
+      void func(int sockfd)                              // Function designed for chat between client and server.
+      { 
+              char arr[256],index[256];
+              FILE *fi;
+              bzero(arr, MAX);
+              int y;
+              read(sockfd, y , sizeof(y));
+              printf("value of y is %d\n",y);
               read(sockfd,arr,sizeof(arr));
               int z=strlen(arr);
               printf("size of array is %d\n",z);
-              int i=0,j=0;
-              index[j]=arr[i+1];
+             
+              for(int a=0;a<z;a++)
+              printf("i is %x\n",arr[a]);
+              int j=0;
+              index[j]=arr[1];
               int k=1;
-              int p=3;
+              int p=4;
               for(j=1;j<32;j++)
-              {
-               if(k<=arr[i+2]){
-               index[j]=arr[p];
-               p++;
-               k++;}
-               else
-               index[j]='0';              
-              }
-               printf("i,j,k,p are %d %d %d %d\n",i,j,k,p);
-               int l=1;
-              // index[j]=arr[p]; //attribute length
-               printf("Array of p is %d\n",arr[p]);
-               int o=p+1;
-               for(j=32;j<64;j++)
                {
-                 if(l<=arr[p]){
+                if(k<=arr[3])
+                {
+                 index[j]=arr[p];
+                 p++;
+                 k++;
+                }
+               else
+                index[j]='0';              
+              }
+               printf("j,k,p are %d %d %d\n",j,k,p);
+               int l=1;
+               // index[j]=arr[p]; //attribute length
+               printf("Array of p is %d\n",arr[p]);
+               p++;
+               int o=p+1;
+               printf("value of p and in array is %d %d\n",p,arr[p]);
+              for(j=32;j<64;j++)
+               {
+                if(l<=arr[p])
+                {
                  index[j]=arr[o];
                  o++;
-                 l++;}
-                 else
+                 l++;
+                }
+                else
                  index[j]='0';
                }
-                printf("l,o,p,j are %d %d %d %d\n",l,o,p,j);
+                o++;
+                printf("l,o,p,j and array of o is %d %d %d %d %d\n",l,o,p,j,arr[o]);
                 
                 int b=1,q=o+1;
-                for(j=54;j<256;j++)
+                //printf("array of q is %d\n",arr[q]);
+                for(j=64;j<256;j++)
                 {
                  if(b<=arr[o])
                   {
@@ -63,40 +76,18 @@ void func(int sockfd)
                   else
                   index[j]='0';
                 }
+               int r=strlen(index);
+               printf("no of elements in index are %d\n",r);
                  
-                
-       
-            
                fi=fopen("database.txt","a");
-               if ( fi == NULL )   //if pointer is NULL means no file present
-               printf( "file failed to open." ) ; 
+               if (fi == NULL)   //if pointer is NULL means no file present
+               printf("file failed to open.") ; 
                else{
                printf("The file is now opened.\n") ; 
                fputs(index,fi);
                }
-            
                fclose(fi);
-               
-               
-               
-                /* char buff[MAX]; 
-		// print buffer which contains the client contents 
-		printf("From client: %s\t To client : ", buff); 
-		bzero(buff, MAX); 
-		n = 0; 
-		// copy server message in the buffer 
-		while ((buff[n++] = getchar()) != '\n'); 
-
-        
-		// and send that buffer to client 
-		write(sockfd, buff, sizeof(buff)); 
-
-		// if msg contains "Exit" then server exit and chat ended. 
-		if (strncmp("exit", buff, 4) == 0) { 
-			printf("Server Exit...\n"); 
-			break; 
-		} */
-	
+               	
 } 
 
 int main() 

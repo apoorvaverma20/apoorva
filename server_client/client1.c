@@ -16,15 +16,14 @@ void func(int sockfd)
 {     
      
        int i=0;
-       char arr[100];
-       //char value;
+       char arr[256];
        bzero(arr, MAX);
-       enum command{Read=0,writing=1,remove=2,edit=3}; //0 to 3
-       enum attri_id{dev_name=0,loc=1,manf_name=2};
+       enum command{Read=0,writing=1,remove=2,edit=3};                 //0 to 3
+       enum attri_id{dev_name=1,loc=2,manf_name=3};
        int8_t dev_id;
-       int x;
+       int y;
        int8_t attr_len;
-       char name[32],location[32];
+       char name[32],location[32],manufc[32];
        //enum command k;
        enum attri_id m;
        m=0;
@@ -32,70 +31,79 @@ void func(int sockfd)
          printf("2.Remove a device\n");
          printf("3.Edit the device details\n");
          printf("Enter the value of x : \n");
-         scanf("%d",&x);
+         scanf("%d",&y);
+         write(sockfd, y , sizeof(y)); 
+         printf("value of x is %d\n",y);
      
-       if(x==1)
-       {
-        arr[i]=writing;    //command type                //arr[0]
-        printf("writing means %d\n",arr[i]);
-        i=i+1;
-        printf("value of i is %d\n",i);
-
-        printf("Enter the deviceID\n");       
-        scanf("%hhd",&dev_id);
-        arr[i]=dev_id;    //device id                   //arr[1]
-        printf("device id is %d\n",arr[i]);
-        i=i+1;
-        printf("value of i is %d\n",i);
-   
-        
-        /*arr[i]=dev_name;       //attribute id
-        printf("Attribute id arr[%d] is %d\n",i,arr[i]);        //arr[2]
-        i=i+1;
-        printf("value of i is %d\n",i);*/
-        while(m<3)
+        if(y==1)
         {
-        if(m==0)
-       { printf("Enter the device name to be inserted\n"); 
-        scanf("%s",&name);
-        printf("Name is %s\n",name);}
-       if(m==1)
-       {printf("Enter the device location to be inserted\n"); 
-        scanf("%s",&name);
-        printf("Name is %s\n",name);}
-       if(m==2)
-       {printf("Enter the manufacturer name to be inserted\n"); 
-        scanf("%s",&name);
-        printf("Name is %s\n",name);}
-      
-        attr_len=strlen(name);      
-        arr[i]=attr_len;                            //arr[3]
-        printf("Attribute length of arr[%d] is %d\n",i,arr[i]);
-       // i=i+1;
-        printf("value of i is %d\n",i);
-        i=strlen(arr);             //arr[4]
-       // printf("value of array length is %d\n",i);
-        
-      strcpy(arr+i,name);
-      i=strlen(arr);
-      printf("value of array length is %d\n",i);
-     /* printf("arr[0] is %d\n",arr[0]);
-      printf("arr[1] is %d\n",arr[1]);
-      printf("arr[2] is %d\n",arr[2]);
-      printf("arr[3] is %c\n",arr[3]);
-      printf("arr[4] is %c\n",arr[4]);
-      printf("arr[5] is %c\n",arr[5]);
-      printf("arr[6] is %c\n",arr[6]);
-      printf("arr[7] is %c\n",arr[7]);*/
+         arr[i]=writing;    //command type                               //arr[0]
+         printf("writing means %d\n",arr[i]);
+         i=i+1;
+         printf("value of i is %d\n",i);
 
-      m++;
-      } //end of while loop
-    }//end of if
-  write(sockfd,arr,sizeof(arr));
+         printf("Enter the deviceID\n");       
+         scanf("%hhd",&dev_id);
+         arr[i]=dev_id;    //device id                                   //arr[1]
+         printf("device id is %d\n",arr[i]);
+         i=i+1;
+         arr[i]=dev_name;
+         printf("value of i is %d\n",i);
          
-	
-} 
+        
+         /*arr[i]=dev_name;       //attribute id
+         printf("Attribute id arr[%d] is %d\n",i,arr[i]);                //arr[2]
+         i=i+1;
+         printf("value of i is %d\n",i);*/
+         while(m<3)
+         {
+          if(m==0)
+          { 
+           printf("Enter the device name to be inserted\n"); 
+           scanf("%s",&name);
+           printf("Name is %s\n",name);
+           i=i+1;
+          }
+          if(m==1)
+          {
+          arr[i]=loc;
+          printf("Enter the device location to be inserted\n"); 
+          scanf("%s",&name);
+          printf("Name is %s\n",name);
+          i=i+1;
+          }
+         if(m==2)
+         {
+          arr[i]=manf_name;
+          printf("Enter the manufacturer name to be inserted\n"); 
+          scanf("%s",&name);
+          printf("Name is %s\n",name);
+          i=i+1;
+         }
+               
+         attr_len=strlen(name);      
+         arr[i]=attr_len;                                                 //arr[3]
+         printf("Attribute length of arr[%d] is %d\n",i,arr[i]);
+         // i=i+1;
+         printf("value of i is %d\n",i);
+         i=strlen(arr);                                                   //arr[4]
+        
+         strcpy(arr+i,name);
+         i=strlen(arr);
+         printf("value of array length is %d\n",i);
+         m++;
+       }                                                                //end of while loop
+     }       
+                                                             //end of if
+   write(sockfd,arr,sizeof(arr));    
+   
 
+        //if(x==2)
+        //{
+         
+           	
+}                                                                       //end of function
+ 
 int main() 
 { 
 	int sockfd, connfd; 
