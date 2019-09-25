@@ -31,7 +31,12 @@ void func(int sockfd)
          printf("2.Remove a device\n");
          printf("3.Edit the device details\n");
          printf("Enter the value of y : \n");
+<<<<<<< HEAD
          scanf("%d",&y);         
+=======
+         scanf("%d",&y);
+         write(sockfd, y , sizeof(y)); 
+>>>>>>> fe36b5552e7785cdabf3f6390442c975948969ed
          printf("value of y is %d\n",y);
      
         if(y==1)
