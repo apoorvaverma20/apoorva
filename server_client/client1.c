@@ -30,13 +30,13 @@ void func(int sockfd)
          printf("1.Add a device\n");
          printf("2.Remove a device\n");
          printf("3.Edit the device details\n");
-         printf("Enter the value of x : \n");
-         scanf("%d",&y);
-         write(sockfd, y , sizeof(y)); 
-         printf("value of x is %d\n",y);
+         printf("Enter the value of y : \n");
+         scanf("%d",&y);         
+         printf("value of y is %d\n",y);
      
         if(y==1)
         {
+         write(sockfd, y , sizeof(y));
          arr[i]=writing;    //command type                               //arr[0]
          printf("writing means %d\n",arr[i]);
          i=i+1;
@@ -95,13 +95,14 @@ void func(int sockfd)
        }                                                                //end of while loop
      }       
                                                              //end of if
-   write(sockfd,arr,sizeof(arr));    
+     write(sockfd,arr,sizeof(arr));    
    
 
-        //if(x==2)
-        //{
-         
-           	
+      if(y==2)
+     {
+       write(sockfd, y , sizeof(y));
+     }
+          	
 }                                                                       //end of function
  
 int main() 

@@ -20,11 +20,15 @@ struct sockaddr_in servaddr, cli;
               bzero(arr, MAX);
               int y;
               read(sockfd, y , sizeof(y));
-              printf("value of y is %d\n",y);
+              
               read(sockfd,arr,sizeof(arr));
               int z=strlen(arr);
               printf("size of array is %d\n",z);
+              printf("enter the value of y \n");
+              scanf("%d",&y);
              
+            if(y==1)
+              {
               for(int a=0;a<z;a++)
               printf("i is %x\n",arr[a]);
               int j=0;
@@ -44,20 +48,12 @@ struct sockaddr_in servaddr, cli;
               }
                printf("j,k,p are %d %d %d\n",j,k,p);
                int l=1;
-<<<<<<< HEAD
                // index[j]=arr[p]; //attribute length
-=======
-               //index[j]=arr[p]; //attribute length
->>>>>>> 025721ea297a2d09698839e70be2cf43349babfc
                printf("Array of p is %d\n",arr[p]);
                p++;
                int o=p+1;
-<<<<<<< HEAD
                printf("value of p and in array is %d %d\n",p,arr[p]);
               for(j=32;j<64;j++)
-=======
-               for(j=32;j<64;j++)
->>>>>>> 025721ea297a2d09698839e70be2cf43349babfc
                {
                 if(l<=arr[p])
                 {
@@ -95,6 +91,25 @@ struct sockaddr_in servaddr, cli;
                fputs(index,fi);
                }
                fclose(fi);
+            } //end of if
+
+         if(y==2)
+          {
+            for(int i=0;i<256;i++)
+            {
+             index[i]='0';
+            }
+               
+           fi=fopen("database.txt","w");
+           if (fi == NULL)   //if pointer is NULL means no file present
+           printf("file failed to open.") ; 
+           else{
+           printf("The file is now opened.\n") ; 
+           fputs(index,fi);
+           }
+           fclose(fi);
+        }
+        
                	
 } 
 
