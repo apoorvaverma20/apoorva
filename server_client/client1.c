@@ -33,7 +33,7 @@ void func(int sockfd)
          printf("Enter the value of x : \n");
          scanf("%d",&y);
          write(sockfd, y , sizeof(y)); 
-         printf("value of x is %d\n",y);
+         printf("value of y is %d\n",y);
      
         if(y==1)
         {
