@@ -24,8 +24,7 @@ struct sockaddr_in servaddr, cli;
               read(sockfd,arr,sizeof(arr));
               int z=strlen(arr);
               printf("size of array is %d\n",z);
-              printf("enter the value of y \n");
-              scanf("%d",&y);
+       
              
             if(y==1)
               {
