@@ -44,12 +44,20 @@ struct sockaddr_in servaddr, cli;
               }
                printf("j,k,p are %d %d %d\n",j,k,p);
                int l=1;
+<<<<<<< HEAD
                // index[j]=arr[p]; //attribute length
+=======
+               //index[j]=arr[p]; //attribute length
+>>>>>>> 025721ea297a2d09698839e70be2cf43349babfc
                printf("Array of p is %d\n",arr[p]);
                p++;
                int o=p+1;
+<<<<<<< HEAD
                printf("value of p and in array is %d %d\n",p,arr[p]);
               for(j=32;j<64;j++)
+=======
+               for(j=32;j<64;j++)
+>>>>>>> 025721ea297a2d09698839e70be2cf43349babfc
                {
                 if(l<=arr[p])
                 {
