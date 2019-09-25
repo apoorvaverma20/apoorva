@@ -30,7 +30,7 @@ void func(int sockfd)
          printf("1.Add a device\n");
          printf("2.Remove a device\n");
          printf("3.Edit the device details\n");
-         printf("Enter the value of x : \n");
+         printf("Enter the value of y : \n");
          scanf("%d",&y);
          write(sockfd, y , sizeof(y)); 
          printf("value of y is %d\n",y);
