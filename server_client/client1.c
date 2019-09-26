@@ -33,6 +33,7 @@ void func(int sockfd)
          printf("2.Remove a device\n");
          printf("3.Edit the device details\n");
          printf("Enter the value of y : \n");
+<<<<<<< HEAD
          scanf("%d",&y);      
       
     if(y==0)         
@@ -58,6 +59,19 @@ void func(int sockfd)
    if(y==1)
    {
          i=0;
+=======
+
+         scanf("%d",&y);         
+
+         scanf("%d",&y);
+         write(sockfd, y , sizeof(y)); 
+
+         printf("value of y is %d\n",y);
+     
+        if(y==1)
+        {
+         write(sockfd, y , sizeof(y));
+>>>>>>> 40d1e30f4e2a83b1b2226bf52734996cb39b6daf
          arr[i]=writing;    //command type                               //arr[0]
          printf("writing means %d\n",arr[i]);
          i=i+1;

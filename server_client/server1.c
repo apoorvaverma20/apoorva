@@ -23,6 +23,7 @@ struct sockaddr_in servaddr, cli;
               read(sockfd,arr,sizeof(arr));
               int z=strlen(arr);
               printf("size of array is %d\n",z);
+<<<<<<< HEAD
              // for(int d=0;d<z;d++){
               //arr2[d]=arr[d];
               //printf("i is %x\n",arr2[d]);}
@@ -32,6 +33,15 @@ struct sockaddr_in servaddr, cli;
               {  
                           
               int j;
+=======
+       
+             
+            if(y==1)
+              {
+              for(int a=0;a<z;a++)
+              printf("i is %x\n",arr[a]);
+              int j=0;
+>>>>>>> 40d1e30f4e2a83b1b2226bf52734996cb39b6daf
               index[j]=arr[1];
               printf("index[%d] is %d\n",j,arr[1]);
               int k=1;
