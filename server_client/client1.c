@@ -15,10 +15,10 @@
 void func(int sockfd) 
 {     
      
-       int i=0;
-       char arr[256];
+       int i;
+       char arr[256],index[256];
        bzero(arr, MAX);
-       enum command{Read=0,writing=1,remove=2,edit=3};                 //0 to 3
+       enum command{reading=0,writing=1,deleting=2,edit=3};                 //0 to 3
        enum attri_id{dev_name=1,loc=2,manf_name=3};
        int8_t dev_id;
        int y;
@@ -27,27 +27,43 @@ void func(int sockfd)
        //enum command k;
        enum attri_id m;
        m=0;
+       for(;;){
+         printf("0.Read a device details\n");
          printf("1.Add a device\n");
          printf("2.Remove a device\n");
          printf("3.Edit the device details\n");
          printf("Enter the value of y : \n");
-<<<<<<< HEAD
-         scanf("%d",&y);         
-=======
-         scanf("%d",&y);
-         write(sockfd, y , sizeof(y)); 
->>>>>>> fe36b5552e7785cdabf3f6390442c975948969ed
-         printf("value of y is %d\n",y);
-     
-        if(y==1)
-        {
-         write(sockfd, y , sizeof(y));
+         scanf("%d",&y);      
+      
+    if(y==0)         
+    {
+         i=0;
+         arr[i]=reading;       //arr[0]
+         printf("read means %d\n",arr[i]);
+         i=i+1;
+         printf("value of i is %d\n",i);
+       
+         printf("Enter the deviceID\n");    
+         scanf("%hhd",&dev_id);
+         arr[i]=dev_id;                    //arr[1]  
+         printf("device id is %d\n",arr[i]);
+
+         read(sockfd,index,sizeof(index));
+         for(int k=0;k<256;k++)
+         {
+          printf("%c\n", index[k]);
+         }
+     }        //end of if 
+                     
+   if(y==1)
+   {
+         i=0;
          arr[i]=writing;    //command type                               //arr[0]
          printf("writing means %d\n",arr[i]);
          i=i+1;
          printf("value of i is %d\n",i);
-
-         printf("Enter the deviceID\n");       
+        
+         printf("Enter the deviceID\n");      //start from 0 
          scanf("%hhd",&dev_id);
          arr[i]=dev_id;    //device id                                   //arr[1]
          printf("device id is %d\n",arr[i]);
@@ -55,11 +71,6 @@ void func(int sockfd)
          arr[i]=dev_name;
          printf("value of i is %d\n",i);
          
-        
-         /*arr[i]=dev_name;       //attribute id
-         printf("Attribute id arr[%d] is %d\n",i,arr[i]);                //arr[2]
-         i=i+1;
-         printf("value of i is %d\n",i);*/
          while(m<3)
          {
           if(m==0)
@@ -98,18 +109,48 @@ void func(int sockfd)
          printf("value of array length is %d\n",i);
          m++;
        }                                                                //end of while loop
-     }       
-                                                             //end of if
+   }                                                                    //end of if
+       
+   if(y==2)
+   { 
+         i=0;
+         arr[i]=deleting;    //arr[0]
+         printf("deleting means %d\n",arr[i]);
+         i=i+1;
+         printf("value of i is %d\n",i);
+      
+         printf("Enter the deviceID\n");       
+         scanf("%hhd",&dev_id);
+         arr[i]=dev_id;    //device id    //arr[1]                                
+         printf("device id is %d\n",arr[i]);
+         
+   }                //end of if
+   if(y==3)           
+   { 
+         i=0;
+         arr[i]=edit; //arr[0]
+         printf("edit means %d\n",arr[i]);
+         i=i+1;
+         printf("value of i is %d\n",i);
+         
+         printf("Enter the deviceID\n");       
+         scanf("%hhd",&dev_id);
+         arr[i]=dev_id;    //device id    //arr[1]                                
+         printf("device id is %d\n",arr[i]);
+         i=i+1;
+
+         printf("enter the attribute id to edit\n");
+         scanf("%d",&m);
+         printf("attribute id is %d\n",m);
+         arr[i]=m;
+         printf("attribute id is %d\n",arr[i]);      
+   }                  //end of if     
      write(sockfd,arr,sizeof(arr));    
    
+   }       
+             //end of infinite for
+ }                   //end of function
 
-      if(y==2)
-     {
-       write(sockfd, y , sizeof(y));
-     }
-          	
-}                                                                       //end of function
- 
 int main() 
 { 
 	int sockfd, connfd; 

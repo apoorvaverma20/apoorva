@@ -15,87 +15,105 @@ struct sockaddr_in servaddr, cli;
 
       void func(int sockfd)                              // Function designed for chat between client and server.
       { 
-              char arr[256],index[256];
+              char arr[256],index[256],arr2[256];
               FILE *fi;
+              char ch;
               bzero(arr, MAX);
-              int y;
-              read(sockfd, y , sizeof(y));
-              
+              int t1;              
               read(sockfd,arr,sizeof(arr));
               int z=strlen(arr);
               printf("size of array is %d\n",z);
-              printf("enter the value of y \n");
-              scanf("%d",&y);
-             
-            if(y==1)
-              {
-              for(int a=0;a<z;a++)
-              printf("i is %x\n",arr[a]);
-              int j=0;
+             // for(int d=0;d<z;d++){
+              //arr2[d]=arr[d];
+              //printf("i is %x\n",arr2[d]);}
+       
+       
+       if(arr[0]==1)  //add/write
+              {  
+                          
+              int j;
               index[j]=arr[1];
+              printf("index[%d] is %d\n",j,arr[1]);
               int k=1;
               int p=4;
+              t1=4;
               for(j=1;j<32;j++)
                {
                 if(k<=arr[3])
                 {
                  index[j]=arr[p];
+                 printf("index[%d] is %d\n",j,index[j]);
                  p++;
                  k++;
                 }
-               else
-                index[j]='0';              
-              }
-               printf("j,k,p are %d %d %d\n",j,k,p);
-               int l=1;
-               // index[j]=arr[p]; //attribute length
-               printf("Array of p is %d\n",arr[p]);
+               else{
+                index[j]='0'; 
+                printf("index[%d] is %d\n",j,index[j]); }                           
+              }              
+               int l=1;               
                p++;
                int o=p+1;
-               printf("value of p and in array is %d %d\n",p,arr[p]);
+               int t2=o;
+          
               for(j=32;j<64;j++)
                {
                 if(l<=arr[p])
                 {
                  index[j]=arr[o];
+                  printf("index[%d] is %d\n",j,index[j]);
                  o++;
                  l++;
                 }
-                else
+                else{
                  index[j]='0';
+                 printf("index[%d] is %d\n",j,index[j]);}
                }
                 o++;
-                printf("l,o,p,j and array of o is %d %d %d %d %d\n",l,o,p,j,arr[o]);
                 
                 int b=1,q=o+1;
-                //printf("array of q is %d\n",arr[q]);
+                int t3=q;
                 for(j=64;j<256;j++)
                 {
                  if(b<=arr[o])
                   {
                    index[j]=arr[q];
+                   printf("index[%d] is %d\n",j,index[j]);
                    q++;
                    b++;
-                   }
-                  else
+                  }
+                  else{
                   index[j]='0';
+                  printf("index[%d] is %d\n",j,index[j]);}
                 }
                int r=strlen(index);
                printf("no of elements in index are %d\n",r);
-                 
+              
                fi=fopen("database.txt","a");
-               if (fi == NULL)   //if pointer is NULL means no file present
+               if (fi == NULL)                                          //if pointer is NULL means no file present
                printf("file failed to open.") ; 
                else{
                printf("The file is now opened.\n") ; 
                fputs(index,fi);
                }
                fclose(fi);
-            } //end of if
+    } 
+ 
+     if(arr[0]==0)//read
+       {  
+              fi=fopen("database.txt","r");
+              if (fi == NULL)                                          //if pointer is NULL means no file present
+              printf("file failed to open.") ; 
+              else
+              printf("The file is now opened.\n") ; 
+              //while((ch = fgetc(fi)) != EOF)
+              write(sockfd,index,sizeof(index));
+  
+       }
+           
 
-         if(y==2)
-          {
-            for(int i=0;i<256;i++)
+     if(arr[0]==2)    //delete
+      {
+           for(int i=0;i<256;i++)
             {
              index[i]='0';
             }
@@ -109,6 +127,10 @@ struct sockaddr_in servaddr, cli;
            }
            fclose(fi);
         }
+
+    if(arr[0]==3) //edit
+    {
+    }
         
                	
 } 
