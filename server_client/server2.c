@@ -15,98 +15,92 @@ struct sockaddr_in servaddr, cli;
 
       void func(int sockfd)                              // Function designed for chat between client and server.
       { 
-              char arr[256],index[256],arr2[256];
+              char arr[2560],index[2560];
               FILE *fi;
               char ch;
-              bzero(arr, MAX);
-              int t1;              
+              bzero(arr, MAX);            
               read(sockfd,arr,sizeof(arr));
               int z=strlen(arr);
               printf("size of array is %d\n",z);
-<<<<<<< HEAD
-             // for(int d=0;d<z;d++){
-              //arr2[d]=arr[d];
-              //printf("i is %x\n",arr2[d]);}
-       
-       
+              for(int j=0;j<z;j++)
+              printf("value in array are %d\n",arr[j]);
+               fi=fopen("database.txt","a+");
+               if (fi == NULL)                                          //if pointer is NULL means no file present
+               printf("file failed to open.") ; 
+               else
+               printf("The file is now opened.\n") ; 
+    for(;;)
+    { 
        if(arr[0]==1)  //add/write
-              {  
-                          
-              int j;
-=======
-       
-             
-            if(y==1)
-              {
-              for(int a=0;a<z;a++)
-              printf("i is %x\n",arr[a]);
-              int j=0;
->>>>>>> 40d1e30f4e2a83b1b2226bf52734996cb39b6daf
+       {                                        
+              int j=256*(arr[1]-1);
+              int m=j+32;
+              int n=j+64;
+              int r=j+256;
               index[j]=arr[1];
+              fputc(index[j],fi);
               printf("index[%d] is %d\n",j,arr[1]);
               int k=1;
-              int p=4;
-              t1=4;
-              for(j=1;j<32;j++)
+              int p=j+4;
+              int e=j+3;  
+              for(j=j+1;j<m;j++)
                {
-                if(k<=arr[3])
+                if(k<=arr[e])
                 {
                  index[j]=arr[p];
+                 fputc(index[j],fi);
                  printf("index[%d] is %d\n",j,index[j]);
                  p++;
                  k++;
                 }
                else{
                 index[j]='0'; 
+                fputc(index[j],fi);
                 printf("index[%d] is %d\n",j,index[j]); }                           
-              }              
+              }     //for          
+                         
                int l=1;               
                p++;
-               int o=p+1;
-               int t2=o;
-          
-              for(j=32;j<64;j++)
+               int o=p+1;          
+              for(j=m;j<n;j++)
                {
                 if(l<=arr[p])
                 {
                  index[j]=arr[o];
+                 fputc(index[j],fi);
                   printf("index[%d] is %d\n",j,index[j]);
                  o++;
                  l++;
                 }
                 else{
                  index[j]='0';
+                 fputc(index[j],fi);
                  printf("index[%d] is %d\n",j,index[j]);}
-               }
-                o++;
-                
+               }  //for
+                o++;                
                 int b=1,q=o+1;
-                int t3=q;
-                for(j=64;j<256;j++)
+                for(j=n;j<r;j++)
                 {
                  if(b<=arr[o])
                   {
                    index[j]=arr[q];
+                   fputc(index[j],fi);
                    printf("index[%d] is %d\n",j,index[j]);
                    q++;
                    b++;
                   }
                   else{
                   index[j]='0';
-                  printf("index[%d] is %d\n",j,index[j]);}
-                }
-               int r=strlen(index);
-               printf("no of elements in index are %d\n",r);
-              
-               fi=fopen("database.txt","a");
-               if (fi == NULL)                                          //if pointer is NULL means no file present
-               printf("file failed to open.") ; 
-               else{
-               printf("The file is now opened.\n") ; 
-               fputs(index,fi);
-               }
+                  fputc(index[j],fi);
+                  printf("index[%d] is %d\n",j,index[j]);
+                  }
+               }  //for
+           // int s=strlen(index);
+            //printf("no of elements in index are %d\n",s);
+                             
+       } //if
                fclose(fi);
-    } 
+    
  
      if(arr[0]==0)//read
        {  
@@ -123,9 +117,9 @@ struct sockaddr_in servaddr, cli;
 
      if(arr[0]==2)    //delete
       {
-           for(int i=0;i<256;i++)
+           for(int i=256*(arr[1]-1);i<256*arr[1];i++)
             {
-             index[i]='0';
+             index[i]='\0';
             }
                
            fi=fopen("database.txt","w");
@@ -133,16 +127,57 @@ struct sockaddr_in servaddr, cli;
            printf("file failed to open.") ; 
            else{
            printf("The file is now opened.\n") ; 
-           fputs(index,fi);
+           fputc (index,fi);
            }
            fclose(fi);
         }
 
     if(arr[0]==3) //edit
     {
+     int i,j=4;
+     fi=fopen("database.txt","w");
+     if (fi == NULL)   //if pointer is NULL means no file present
+       printf("file failed to open."); 
+     else
+         printf("The file is now opened.\n");
+     ch=fgetc(fi);
+     while(ch!=EOF)
+     {
+      if(arr[2]==1)
+      {
+       for(i=1;i<32 && i<arr[3];i++)
+      {
+       index[i]=arr[j];
+       i++,j++;
+       fputc(index,fi);}
+      }
+     if(arr[2]==2)
+     {
+      for(i=32;i<64 && i<arr[3];i++)
+      {
+       index[i]=arr[j];
+       i++,j++s;
+       fputc(index,fi);}
+      }
+      if(arr[2]==3)
+      {
+      for(i=64;i<256 && i<arr[3];i++)
+      {
+       index[i]=arr[j];
+       i++,j++s;
+       fputc(index,fi);}
+      }
+       
     }
-        
-               	
+}
+          fclose(fi);
+    if(!arr[0])
+    {
+      printf("Entered wrong choice\n");
+      printf("Server Exit...\n"); 
+      break; 
+    }
+ } //infinite for loop
 } 
 
 int main() 

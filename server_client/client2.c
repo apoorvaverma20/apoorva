@@ -16,7 +16,7 @@ void func(int sockfd)
 {     
      
        int i;
-       char arr[256],index[256];
+       char arr[2560],index[2560];
        bzero(arr, MAX);
        enum command{reading=0,writing=1,deleting=2,edit=3};                 //0 to 3
        enum attri_id{dev_name=1,loc=2,manf_name=3};
@@ -33,21 +33,22 @@ void func(int sockfd)
          printf("2.Remove a device\n");
          printf("3.Edit the device details\n");
          printf("Enter the value of y : \n");
-<<<<<<< HEAD
          scanf("%d",&y);      
       
     if(y==0)         
     {
-         i=0;
+       
+         printf("Enter the deviceID\n");    
+         scanf("%hhd",&dev_id);
+         i=(256*(dev_id-1))+1;
+         arr[i]=dev_id;                    //arr[1]  
+         printf("device id is %d\n",arr[i]);
+         i=i-1;
+
          arr[i]=reading;       //arr[0]
          printf("read means %d\n",arr[i]);
          i=i+1;
          printf("value of i is %d\n",i);
-       
-         printf("Enter the deviceID\n");    
-         scanf("%hhd",&dev_id);
-         arr[i]=dev_id;                    //arr[1]  
-         printf("device id is %d\n",arr[i]);
 
          read(sockfd,index,sizeof(index));
          for(int k=0;k<256;k++)
@@ -58,30 +59,20 @@ void func(int sockfd)
                      
    if(y==1)
    {
-         i=0;
-=======
-
-         scanf("%d",&y);         
-
-         scanf("%d",&y);
-         write(sockfd, y , sizeof(y)); 
-
-         printf("value of y is %d\n",y);
-     
-        if(y==1)
-        {
-         write(sockfd, y , sizeof(y));
->>>>>>> 40d1e30f4e2a83b1b2226bf52734996cb39b6daf
-         arr[i]=writing;    //command type                               //arr[0]
-         printf("writing means %d\n",arr[i]);
-         i=i+1;
-         printf("value of i is %d\n",i);
         
-         printf("Enter the deviceID\n");      //start from 0 
+         printf("Enter the deviceID\n");      //start from 1
          scanf("%hhd",&dev_id);
+         i=(256*(dev_id-1))+1;
          arr[i]=dev_id;    //device id                                   //arr[1]
          printf("device id is %d\n",arr[i]);
-         i=i+1;
+         i=i-1;
+
+         arr[i]=writing;    //command type                               //arr[0]
+         printf("writing means %d\n",arr[i]);
+         i=i+2;
+         printf("value of i is %d\n",i);  
+ 
+        
          arr[i]=dev_name;
          printf("value of i is %d\n",i);
          
@@ -127,38 +118,65 @@ void func(int sockfd)
        
    if(y==2)
    { 
-         i=0;
+         printf("Enter the deviceID\n");       
+         scanf("%hhd",&dev_id);
+         i=(256*(dev_id-1))+1;
+         arr[i]=dev_id;    //device id    //arr[1]                                
+         printf("device id is %d\n",arr[i]);
+         i=i-1;
+
          arr[i]=deleting;    //arr[0]
          printf("deleting means %d\n",arr[i]);
          i=i+1;
          printf("value of i is %d\n",i);
-      
-         printf("Enter the deviceID\n");       
-         scanf("%hhd",&dev_id);
-         arr[i]=dev_id;    //device id    //arr[1]                                
-         printf("device id is %d\n",arr[i]);
          
    }                //end of if
    if(y==3)           
    { 
-         i=0;
-         arr[i]=edit; //arr[0]
-         printf("edit means %d\n",arr[i]);
-         i=i+1;
-         printf("value of i is %d\n",i);
-         
          printf("Enter the deviceID\n");       
          scanf("%hhd",&dev_id);
+         i=(256*(dev_id-1))+1;
          arr[i]=dev_id;    //device id    //arr[1]                                
          printf("device id is %d\n",arr[i]);
-         i=i+1;
+         i=i-1;
+
+         arr[i]=edit; //arr[0]
+         printf("edit means %d\n",arr[i]);
+         i=i+2;
+         printf("value of i is %d\n",i);
 
          printf("enter the attribute id to edit\n");
          scanf("%d",&m);
          printf("attribute id is %d\n",m);
          arr[i]=m;
-         printf("attribute id is %d\n",arr[i]);      
-   }                  //end of if     
+         printf("attribute id is %d\n",arr[i]);   
+         i=i+1;
+         printf("Enter the new value \n");
+         scanf("%s",&name);
+         printf("New value is %s\n",name);
+         
+         attr_len=strlen(name);      
+         arr[i]=attr_len;                                                 //arr[3]
+         printf("Attribute length of arr[%d] is %d\n",i,arr[i]);
+         // i=i+1;
+         printf("value of i is %d\n",i);
+         i=strlen(arr);                                                   //arr[4]
+        
+         strcpy(arr+i,name);
+         i=strlen(arr);
+         printf("value of array length is %d\n",i);
+
+         
+         
+   }                  //end of if 
+
+  write(sockfd,arr,sizeof(arr));    
+  if(y>3)
+  {
+   printf("Entered wrong choice\n");
+   printf("Client Exit...\n"); 
+   break; 
+  }
      write(sockfd,arr,sizeof(arr));    
    
    }       
