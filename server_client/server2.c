@@ -109,9 +109,13 @@ struct sockaddr_in servaddr, cli;
               printf("file failed to open.") ; 
               else
               printf("The file is now opened.\n") ; 
-              //while((ch = fgetc(fi)) != EOF)
-              write(sockfd,index,sizeof(index));
-  
+              ch = fgetc(fi);
+              while (ch != EOF)
+              {
+              // printf ("%c", ch);
+               write(sockfd,ch,sizeof(ch));
+               ch = fgetc(fi);
+              }
        }
            
 
@@ -122,7 +126,7 @@ struct sockaddr_in servaddr, cli;
              index[i]='\0';
             }
                
-           fi=fopen("database.txt","w");
+           fi=fopen("database.txt","w+");
            if (fi == NULL)   //if pointer is NULL means no file present
            printf("file failed to open.") ; 
            else{
@@ -134,42 +138,40 @@ struct sockaddr_in servaddr, cli;
 
     if(arr[0]==3) //edit
     {
-     int i,j=4;
-     fi=fopen("database.txt","w");
+     int i,j=4,k;
+     fi=fopen("database.txt","w+");
      if (fi == NULL)   //if pointer is NULL means no file present
        printf("file failed to open."); 
      else
-         printf("The file is now opened.\n");
-     ch=fgetc(fi);
-     while(ch!=EOF)
-     {
+       printf("The file is now opened.\n");
+  
       if(arr[2]==1)
-      {
-       for(i=1;i<32 && i<arr[3];i++)
+      {k=1;
+       for(i=1;i<32 && k<arr[3];i++)
       {
        index[i]=arr[j];
-       i++,j++;
+       i++,j++,k++;
        fputc(index,fi);}
       }
      if(arr[2]==2)
-     {
-      for(i=32;i<64 && i<arr[3];i++)
+     {k=1;
+      for(i=32;i<64 && k<arr[3];i++)
       {
        index[i]=arr[j];
-       i++,j++s;
+       i++,j++,k++;
        fputc(index,fi);}
       }
       if(arr[2]==3)
-      {
-      for(i=64;i<256 && i<arr[3];i++)
+      {k=1;
+      for(i=64;i<256 && k<arr[3];i++)
       {
        index[i]=arr[j];
-       i++,j++s;
+       i++,j++,k++;
        fputc(index,fi);}
       }
        
     }
-}
+
           fclose(fi);
     if(!arr[0])
     {

@@ -23,7 +23,7 @@ void func(int sockfd)
        int8_t dev_id;
        int y;
        int8_t attr_len;
-       char name[32],location[32],manufc[32];
+       char name[32],location[32],manufc[32],ch;
        //enum command k;
        enum attri_id m;
        m=0;
@@ -47,14 +47,8 @@ void func(int sockfd)
 
          arr[i]=reading;       //arr[0]
          printf("read means %d\n",arr[i]);
-         i=i+1;
-         printf("value of i is %d\n",i);
-
-         read(sockfd,index,sizeof(index));
-         for(int k=0;k<256;k++)
-         {
-          printf("%c\n", index[k]);
-         }
+         read(sockfd,ch,sizeof(ch));
+         printf("%d",ch);
      }        //end of if 
                      
    if(y==1)
